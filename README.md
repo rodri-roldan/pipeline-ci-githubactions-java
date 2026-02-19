@@ -25,6 +25,18 @@ jobs:
        run: mvn -B package --file pom.xml
 ```
 
+## Parte 2 - CD 
+### Resolución de problemas con la suscripción de Estudiantes 
+
+Las suscripciones de Estudiante de forma aleaotoria tienen limitaciones:
+
+Con el siguiente script vamos a listar todas las regiones “Physical” disponibles en tu suscripción y marcar si están permitidas por Policy (si no se encuentra ninguna allowlist, asume todas permitidas por policy):
+
+```SHELL
+az policy assignment list  --subscription $(az account show --query id -o tsv)  --query "[?parameters.listOfAllowedLocations.value!=null].parameters.listOfAllowedLocations.value[]"  -o tsv
+```
+
+
 ## Recursos
 https://www.adictosaltrabajo.com/2020/10/28/introduccion-a-github-actions-sintaxis-basica/
 
